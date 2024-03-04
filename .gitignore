@@ -1,2 +1,6 @@
+# IntelliJ Idea
+/.idea
+/*.iml
+
+# Maven
 /target
-.vscode/settings.json
