@@ -1,41 +1,26 @@
 pipeline {
-    agent any
-
-    // secret credentials
-    environment {
-        BOT_TOKEN = credentials('telegram_token')
-        CHAT_ID = credentials('telegram_chatid')
-
-    }
+    agent any // windows agent, Jenkins-Laravel (other machine)
+    
     stages {
-        stage('Deployment') {
-            // environment variables
+        stage('Fetch from GitHub') { // build steps
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no root@$APP_SERVICE_IP "cd /root/monyratanak/POS/api;\
-                git reset --hard;\
-                git fetch;\
-                git checkout devops-monyratanak;\
-                git pull;\
-                "'
+                echo 'Fetching from GitHub'
+                git branch: 'main', url:'https://github.com/taltongsreng/i4a-website.git'
             }
-            // steps {
-            //     sh '''
-            //         echo "Good Evening"
-            //         git reset sadsadsad
-            //     '''
-            // }
         }
-    }
-    post {
-        success {
-            sh '''
-                bash scripts/deployment.sh SUCCESS🟢
-            '''
+        stage('Build using Tools') {
+            steps {
+                echo 'Compiling code...'
+                sh 'cp .env.example .env'
+                sh 'composer install && php artisan key:generate && npm install && npm run build'
+            }
         }
-        failure {
-            sh '''
-                bash scripts/deployment.sh FAILED🔴
-            '''
+        stage('Test the app') {
+            steps {
+                echo 'Testing unit tests...'
+                echo 'Testing features...'
+                sh 'php artisan test'
+            }
         }
     }
 }
