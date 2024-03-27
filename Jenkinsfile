@@ -10,7 +10,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/cvamsikrishna11/python-cicd-repo.git'
             }
         }
-		
         stage('Prepare') {
             steps {
                 echo 'Creating a virtual environment...'
@@ -19,7 +18,6 @@ pipeline {
                 sh 'venv/bin/python -m pip install -r requirements.txt'
             }
         }
-
         stage('Test') {
             steps {             
                
