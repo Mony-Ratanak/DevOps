@@ -30,10 +30,12 @@ pipeline {
         }
     }
 
-    // post {
-    //     always {
-    //         junit 'test-results.xml'
-    //         cobertura coberturaReportFile: 'coverage.xml'
-    //     }
-    // }
+    post {
+        always {
+        always {
+            // Archive test results
+            junit 'test-reports/*.xml'
+        }
+        }
+    }
 }
