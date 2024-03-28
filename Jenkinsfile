@@ -11,7 +11,10 @@ pipeline {
 		stage('Git Checkout') {
             steps {
                 echo 'Code checkout.'
-                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
+                git reset --hard;\
+                git fetch;\
+                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'/
+                git pull;\
             }
         }
         stage('Prepare') {
@@ -23,7 +26,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        
+
         stage('Test') {
             steps {             
                
