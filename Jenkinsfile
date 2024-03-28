@@ -7,14 +7,12 @@ pipeline {
     }
     stages {
 
-        stages {
-		stage('Git Checkout') {
+        stage('Git Checkout') {
             steps {
                 echo 'Code checkout.'
-                git branch: 'springboot-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
+                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
             }
         }
-	
         stage('Build with unit testing') {
             steps {
                 // Run the maven build
