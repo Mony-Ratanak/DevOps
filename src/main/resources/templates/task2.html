@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <!-- Include Bootstrap CSS from a CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-4 ">
+                <h2 class="mt-5 d-flex justify-content-center align-items-center" >Login Form</h2>
+                <form class="login-form" onsubmit="validateLogin(event)">
+                    <div class="mb-3">
+                        <label for="username" class="form-label" >Username:  </label>
+                        <input type="text" class="form-control " id="username" placeholder="Enter your username"> 
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label " style="margin-left: 3px;">Password:</label>
+                        <input type="password" class="form-control " id="password" placeholder="Enter your password">
+                    </div>
+                    <div class="d-flex justify-content-end align-items-end"><button type="submit" class="btn btn-primary " >Sign in</button></div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Include Bootstrap JavaScript from a CDN (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+
+            var enteredUsername = document.getElementById("username").value;
+            var enteredPassword = document.getElementById("password").value;
+
+            if (enteredUsername === "MonyRatanak" && enteredPassword === "123456") {
+                window.location.href = "http://localhost:8080/TP04/task5";
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
