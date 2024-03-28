@@ -5,12 +5,12 @@ pipeline {
     environment {
         EMAIL_RECIPIENTS = 'mrrnak910@gmail.com'
     }
-    
+
     stages {
         stage('Git Checkout') {
             steps {
                 echo 'Code checkout.'
-                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
+                git branch: 'springboot-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
             }
         }
         stage('Build with unit testing') {
