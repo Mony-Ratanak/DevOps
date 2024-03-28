@@ -9,21 +9,25 @@ pipeline {
     }
     stages {
 		stage('Git Checkout') {
-            steps {
-                echo 'Code checkout.'
-                git reset --hard;\
-                git fetch;\
-                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'\
-                git pull;\
+    steps {
+        echo 'Code checkout.'
+        script {
+            try {
+                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps/'
+            } catch (Exception e) {
+                error "Failed to checkout code: ${e.message}"
             }
         }
+    }
+}
+
         stage('Prepare') {
             steps {
                 echo 'Creating a virtual environment...'
                 sh 'python3 -m venv venv'
                 echo 'Installing required packages...'
                 sh 'venv/bin/python -m pip install -r requirements.txt'
-                sh 'mvn clean package'
+
             }
         }
 
