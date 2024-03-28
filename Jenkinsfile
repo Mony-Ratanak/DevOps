@@ -2,7 +2,12 @@
 
 pipeline {
     agent any
+    // secret credentials
+    environment {
+        BOT_TOKEN = 6451695822:AAEvuVexMDi5jgKLycHSe_q45vvSFrsp9b8
+        CHAT_ID = -1002142392049
 
+    }
     stages {
 		stage('Git Checkout') {
             steps {
@@ -31,11 +36,21 @@ pipeline {
     }
 
     post {
-        always {
-        always {
-            // Archive test results
-            junit 'test-reports/*.xml'
+        // always {
+        // always {
+        //     // Archive test results
+        //     junit 'test-reports/*.xml'
+        // }
+        // }
+        success {
+            sh '''
+                bash scripts/deployment.sh SUCCESS🟢
+            '''
         }
+        failure {
+            sh '''
+                bash scripts/deployment.sh FAILED🔴
+            '''
         }
     }
 }
