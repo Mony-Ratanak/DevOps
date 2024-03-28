@@ -2,6 +2,10 @@
 pipeline
     {
        agent any
+       environment {
+        BOT_TOKEN = '6451695822:AAEvuVexMDi5jgKLycHSe_q45vvSFrsp9b8'
+        CHAT_ID = '-1002142392049'
+       }
         stages
         {
           stage('Git Checkout') {
@@ -18,22 +22,28 @@ pipeline
                   def pom = readMavenPom file: 'pom.xml'
                   version = pom.version
               }
-              sh "mvn clean install -DskipTests=true"
               sh "mvn clean package"
             }
           }
-          
-          stage('Test')
+          stage('Testing App')
           {
             steps
-            {
-              sh "${mvnCmd} test -Dspring.profiles.active=test"
-              //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+             {
+            echo 'testing.....'
+              sh "mvn test"
             }
           }
-
-
-
-          
         }
+        post {
+          success {
+              sh '''
+                  bash scripts/deployment.sh SUCCESS🟢
+              '''
+          }
+          failure {
+              sh '''
+                  bash scripts/deployment.sh FAILED🔴
+              '''
+          }
+       }
     }
