@@ -13,7 +13,7 @@ pipeline {
                 echo 'Code checkout.'
                 git reset --hard;\
                 git fetch;\
-                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'/
+                git branch: 'python-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'\
                 git pull;\
             }
         }
