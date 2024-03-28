@@ -5,6 +5,7 @@ pipeline {
     environment {
         EMAIL_RECIPIENTS = 'mrrnak910@gmail.com'
     }
+    
     stages {
         stage('Git Checkout') {
             steps {
