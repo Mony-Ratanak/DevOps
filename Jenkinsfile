@@ -38,7 +38,6 @@ pipeline {
                 sh 'venv/bin/coverage run --source=. test_main.py'
                 sh 'venv/bin/coverage xml -o coverage.xml'
                 sh 'venv/bin/coverage html'
-               
             }
         }
     }
