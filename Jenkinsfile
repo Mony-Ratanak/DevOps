@@ -20,7 +20,7 @@ pipeline {
                 sh 'python3 -m venv venv'
                 echo 'Installing required packages...'
                 sh 'venv/bin/python -m pip install -r requirements.txt'
-                dddddddddd
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
