@@ -3,10 +3,18 @@ pipeline {
     agent { label 'java8' }
     // global env variables
     environment {
-        EMAIL_RECIPIENTS = 'mahmoud.romeh@test.com'
+        EMAIL_RECIPIENTS = 'mrrnak910@gmail.com'
     }
     stages {
 
+        stages {
+		stage('Git Checkout') {
+            steps {
+                echo 'Code checkout.'
+                git branch: 'springboot-project', url: 'https://github.com/Mony-Ratanak/DevOps.git'
+            }
+        }
+	
         stage('Build with unit testing') {
             steps {
                 // Run the maven build
@@ -131,7 +139,7 @@ pipeline {
         stage('Release and publish artifact') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'springboot-project'
             }
             steps {
                 // create the release version then create a tage with it , then push to nexus releases the released jar
@@ -160,7 +168,7 @@ pipeline {
         stage('Deploy to Acceptance') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'springboot-project'
             }
             steps {
                 script {
@@ -191,7 +199,7 @@ pipeline {
         stage('ACC E2E tests') {
             when {
                 // check if branch is master
-                branch 'master'
+                branch 'springboot-project'
             }
             steps {
                 // give some time till the deployment is done, so we wait 45 seconds
