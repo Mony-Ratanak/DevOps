@@ -1,29 +1,29 @@
 pipeline {
-    agent any
-
-    // secret credentials
+    agent any // windows agent, Jenkins-Laravel (other machine)
     environment {
-        BOT_TOKEN = credentials('telegram_token')
-        CHAT_ID = credentials('telegram_chatid')
-
+        BOT_TOKEN = '6451695822:AAEvuVexMDi5jgKLycHSe_q45vvSFrsp9b8'
+        CHAT_ID = '-1002142392049'
     }
     stages {
-        stage('Deployment') {
-            // environment variables
+        stage('Fetch from GitHub') { // build steps
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no root@$APP_SERVICE_IP "cd /root/monyratanak/POS/api;\
-                git reset --hard;\
-                git fetch;\
-                git checkout devops-monyratanak;\
-                git pull;\
-                "'
+                echo 'Fetching from GitHub'
+                git branch: 'TP03', url:'https://github.com/Mony-Ratanak/DevOps.git'
             }
-            // steps {
-            //     sh '''
-            //         echo "Good Evening"
-            //         git reset sadsadsad
-            //     '''
-            // }
+        }
+        stage('Build using Tools') {
+            steps {
+                echo 'Compiling code...'
+                sh 'cp .env.example .env'
+                sh 'composer install && php artisan key:generate && npm install && npm run build'
+            }
+        }
+        stage('Test the app') {
+            steps {
+                echo 'Testing unit tests...'
+                echo 'Testing features...'
+                sh 'php artisan test'
+            }
         }
     }
     post {
@@ -39,3 +39,4 @@ pipeline {
         }
     }
 }
+
