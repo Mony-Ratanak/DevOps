@@ -1,10 +1,10 @@
-package TP04.TP04_Springboot;
+package TP08.devops;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Tp04SpringBootApplicationTests {
+class DevopsApplicationTests {
 
 	@Test
 	void contextLoads() {

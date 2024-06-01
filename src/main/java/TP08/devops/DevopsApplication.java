@@ -1,13 +1,13 @@
-package TP04.TP04_Springboot;
+package TP08.devops;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Tp04SpringBootApplication {
+public class DevopsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Tp04SpringBootApplication.class, args);
+		SpringApplication.run(DevopsApplication.class, args);
 	}
 
 }
