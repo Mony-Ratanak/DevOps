@@ -35,4 +35,8 @@ pipeline {
         }
         failure {
             sh '''
-                bash scripts/deployment.sh FAILED
+                bash scripts/deployment.sh FAILED🔴
+            '''
+        }
+    }
+}
