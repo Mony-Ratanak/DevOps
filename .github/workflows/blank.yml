@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ "FinalExam" ]
+  pull_request:
+    branches: [ "FinalExam" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, pdo, sqlite
+
+    - name: Install Composer dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+    - name: Create SQLite database file
+      run: touch database/database.sqlite
+
+    - name: Run migrations
+      run: php artisan migrate --force
+
+    - name: Run Artisan tests
+      run: php artisan test
+
+    - name: Archive test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: storage/logs/laravel.log
