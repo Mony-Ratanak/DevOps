@@ -15,6 +15,7 @@ pipeline {
             steps {
                 echo 'Compiling code...'
                 sh 'cp .env.example .env'
+                sh 'composer config --global process-timeout 900'
                 sh 'composer install && php artisan key:generate && npm install && npm run build'
             }
         }
@@ -34,9 +35,4 @@ pipeline {
         }
         failure {
             sh '''
-                bash scripts/deployment.sh FAILED🔴
-            '''
-        }
-    }
-}
-
+                bash scripts/deployment.sh FAILED
