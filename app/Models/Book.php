@@ -11,8 +11,8 @@ class Book extends Model
     protected $fillable = ['title', 'author', 'isbn'];
     protected static function booted(): void
     {
-        static::creating(function (User $user) {
-            $user->device_id = self::UniqueMachineID();
+        static::creating(function (Book $book) {
+            $book->device_id = self::UniqueMachineID();
         });
     }
     static function UniqueMachineID($salt = "") {
